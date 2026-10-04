@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /thank-you.html
+
+Sitemap: https://ekaivastore.com/sitemap.xml

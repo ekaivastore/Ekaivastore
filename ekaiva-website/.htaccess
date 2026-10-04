@@ -1,0 +1,35 @@
+# Ekaiva website - settings for GoDaddy / cPanel (Apache) hosting.
+# If your site shows "500 Internal Server Error" after uploading, delete this file - the site works without it.
+
+ErrorDocument 404 /404.html
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 hour"
+  ExpiresByType application/javascript "access plus 1 hour"
+  ExpiresByType image/webp "access plus 1 week"
+  ExpiresByType image/png "access plus 1 week"
+  ExpiresByType image/jpeg "access plus 1 week"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+# --- Turn these ON only AFTER the free SSL certificate is installed on your domain ---
+# (remove the # at the start of the 4 lines below)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
+
+# --- Optional: always use ekaivastore.com without "www" (turn on together with the lines above) ---
+# RewriteCond %{HTTP_HOST} ^www\.ekaivastore\.com$ [NC]
+# RewriteRule ^(.*)$ https://ekaivastore.com/$1 [L,R=301]

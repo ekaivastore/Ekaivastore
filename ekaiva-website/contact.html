@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Ekaiva</title>
+<meta name="description" content="Contact Ekaiva for questions, feedback or bulk, retail and distributor enquiries. Bhayander West, Mira Bhayander, Maharashtra.">
+
+<meta name="theme-color" content="#45090f">
+<link rel="icon" type="image/png" href="images/site/favicon.png">
+<link rel="apple-touch-icon" href="images/site/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ekaiva">
+<meta property="og:title" content="Contact Ekaiva">
+<meta property="og:description" content="Contact Ekaiva for questions, feedback or bulk, retail and distributor enquiries. Bhayander West, Mira Bhayander, Maharashtra.">
+<meta property="og:image" content="https://ekaivastore.com/images/site/og-image.jpg">
+<link rel="canonical" href="https://ekaivastore.com/contact.html">
+<meta property="og:url" content="https://ekaivastore.com/contact.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body data-page="contact">
+<a class="skip" href="#main">Skip to content</a>
+<div id="preloader" aria-hidden="true"><div class="pre-inner"><div class="pre-logo">EKAIVA</div><div class="pre-sub">Swaad hai toh baat hai</div></div></div>
+<script>try{if(sessionStorage.getItem("ekPre")==="1"){var p=document.getElementById("preloader");if(p)p.remove();}}catch(e){}</script>
+<div id="site-header"></div>
+<noscript><p style="padding:14px;background:#f3dfa4;text-align:center">Please turn on JavaScript to see Ekaiva's products. &middot; <a href="products.html">Products</a> &middot; <a href="contact.html">Contact</a></p></noscript>
+<main id="main">
+
+<div class="page-head"><div class="container"><span class="eyebrow" style="color:var(--gold-300)">Contact</span><h1>We&rsquo;d love to hear from you</h1><p>Questions, feedback or a bulk enquiry &mdash; send us a message.</p></div></div>
+<section>
+  <div class="container contact-grid">
+    <div>
+      <div class="alert hide" id="form-off"><b>The message form is not switched on yet.</b> Please reach us using the details on this page.</div>
+      <!-- Messages are delivered to the email set in js/site-config.js using the free formsubmit.co service.
+           The first message you send yourself will ask you to confirm the email address once. -->
+      <form id="contact-form" method="POST" action="#">
+        <input type="hidden" name="_subject" value="New message from the Ekaiva website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" id="next" value="">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <div class="field"><label for="name">Your name</label><input id="name" name="Name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="phone">Phone (optional)</label><input id="phone" name="Phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="topic">What is this about?</label>
+          <select id="topic" name="Topic"><option>General question</option><option>Where to buy / product question</option><option>Bulk, retail or distributor enquiry</option><option>Feedback about a product</option></select></div>
+        <div class="field"><label for="message">Message</label><textarea id="message" name="Message" rows="6" required></textarea></div>
+        <button class="btn btn-primary" type="submit">Send message</button>
+      </form>
+    </div>
+    <aside class="info">
+      <h3>Contact details</h3>
+      <div class="row"><b>Address</b><span data-address></span></div>
+      <div class="row" data-if="contact.email"><b>Email</b><a data-mail href="#"></a></div>
+      <div class="row" data-if="contact.phone"><b>Phone</b><a data-tel href="#"></a></div>
+      <div class="row" data-if="contact.hours"><b>Hours</b><span data-cfg="contact.hours"></span></div>
+      <div class="row"><b>FSSAI Reg. No.</b><span data-cfg="fssai.number"></span></div>
+      <p><a class="btn btn-wa btn-sm" data-wa="Hi Ekaiva!" href="#" style="text-decoration:none;color:#fff">Chat on WhatsApp</a></p>
+      <div class="map"><iframe id="mapframe" title="Map to Ekaiva" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </aside>
+  </div>
+</section>
+
+</main>
+<div id="site-footer"></div>
+<script src="js/site-config.js"></script>
+<script src="js/products-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+Upload your videos (MP4, H.264, ideally under 8 MB each) into this folder, then list them in js/site-config.js.
+Example:   videos: [ { title: "Fruit chaat in two minutes", file: "images/videos/fruit-chaat.mp4" } ],
