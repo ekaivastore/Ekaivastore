@@ -26,7 +26,7 @@ To edit any file, right-click it and open it with Notepad (or any text editor). 
 
 ## 3. Your details (already filled in)
 
-These are already set in `js/site-config.js`: website `https://ekaivastore.com`, email `ekaivaspices@gmail.com`, WhatsApp `917208607821`, Instagram `ekaivastore`. Still empty (so hidden): phone number for calls, opening hours, Facebook/YouTube, Amazon link, and the Instamart link of each product.
+These are already set in `js/site-config.js`: website `https://ekaivastore.com`, email `ekaivaspices@gmail.com`, WhatsApp `919326129431`, Instagram `ekaivastore`. Still empty (so hidden): phone number for calls, opening hours, Facebook/YouTube, Amazon link, and the Instamart link of each product.
 
 Open `js/site-config.js`. Anything you leave as `""` is simply hidden - the site never shows a dead button.
 
@@ -80,7 +80,7 @@ That builder cannot take uploaded website files. Either buy GoDaddy **Web Hostin
 ## 5. After it is live - checklist
 
 - [ ] **Contact form:** send yourself a test message. The first time, formsubmit.co emails ekaivaspices@gmail.com a confirmation link - click it once. Check the spam folder if you do not see it.
-- [ ] **WhatsApp ordering:** add something to the order, press Send, and check the message that arrives on 7208607821.
+- [ ] **WhatsApp ordering:** add something to the order, press Send, and check the message that arrives on 9326129431.
 - [ ] **Instamart links** pasted for each product (section 3).
 - [ ] **Google files:** `robots.txt` and `sitemap.xml` already point to ekaivastore.com - nothing to change.
 - [ ] **Google Search Console:** add ekaivastore.com and submit `https://ekaivastore.com/sitemap.xml` so Google finds your pages.
