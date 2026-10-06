@@ -50,24 +50,12 @@
           </div>
           <small class="verify-status verify-only hide" id="email-status"></small>
         </div>
-        <div class="field">
-          <label for="phone" id="phone-label">Phone (optional)</label>
-          <div class="verify-row">
-            <input id="phone" name="Phone" type="tel" autocomplete="tel">
-            <button type="button" class="btn btn-sm verify-only hide" id="phone-otp-btn">Send OTP</button>
-          </div>
-          <div class="verify-row hide" id="phone-otp-row">
-            <input id="phone-otp-code" type="text" inputmode="numeric" maxlength="6" placeholder="6-digit code" autocomplete="one-time-code">
-            <button type="button" class="btn btn-sm" id="phone-otp-verify-btn">Verify code</button>
-          </div>
-          <small class="verify-status verify-only hide" id="phone-status"></small>
-        </div>
-        <div id="recaptcha-container"></div>
+        <div class="field"><label for="phone">Phone (optional)</label><input id="phone" name="Phone" type="tel" autocomplete="tel"></div>
         <div class="field"><label for="topic">What is this about?</label>
           <select id="topic" name="Topic"><option>General question</option><option>Where to buy / product question</option><option>Bulk, retail or distributor enquiry</option><option>Feedback about a product</option></select></div>
         <div class="field"><label for="message">Message</label><textarea id="message" name="Message" rows="6" required></textarea></div>
         <button class="btn btn-primary" type="submit" id="send-btn">Send message</button>
-        <small class="verify-status verify-only hide" id="verify-hint">Verify your email and phone above to send a message.</small>
+        <small class="verify-status verify-only hide" id="verify-hint">Verify your email above to send a message.</small>
       </form>
     </div>
     <aside class="info">

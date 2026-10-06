@@ -31,11 +31,11 @@ window.EKAIVA_CONFIG = {
     mapQuery: "Ekaiva - Best spices and masala, Shop No 5, Modi Patel Road, Bhayandar West, Mira Bhayandar, Maharashtra 401101"
   },
 
-  /* Verify a visitor's email and phone with a one-time code before they can send a
-     message on the Contact page. Off by default and safe to leave off - the contact
-     form works normally either way. Turn it on only after you've done the one-time
-     Firebase setup in README-SETUP-GUIDE.md ("OTP verification" section), then set
-     enabled to true and fill in the firebase keys from your Firebase project. */
+  /* Verify a visitor's email (a one-time link) before they can send a message on
+     the Contact page. Off by default and safe to leave off - the contact form
+     works normally either way. Turn it on only after you've done the one-time
+     Firebase setup in README-SETUP-GUIDE.md ("Email verification" section), then
+     set enabled to true and fill in the firebase keys from your Firebase project. */
   verification: {
     enabled: false,
     firebase: {
