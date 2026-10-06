@@ -365,6 +365,7 @@
     var email = C.contact && C.contact.email;
     var warn = $("#form-off");
     var mf0 = $("#mapframe"); if (mf0 && C.contact && C.contact.mapQuery) mf0.src = "https://www.google.com/maps?q=" + encodeURIComponent(C.contact.mapQuery) + "&output=embed";
+    var ml0 = $("#maplink"); if (ml0 && C.contact && C.contact.mapQuery) ml0.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(C.contact.mapQuery);
     if (!email) { form.classList.add("hide"); if (warn) warn.classList.remove("hide"); return; }
     var mf = $("#mapframe"); if (mf && C.contact && C.contact.mapQuery) mf.src = "https://www.google.com/maps?q=" + encodeURIComponent(C.contact.mapQuery) + "&output=embed";
     form.action = "https://formsubmit.co/" + String(email).replace(/[^A-Za-z0-9@._+\-]/g, "");
