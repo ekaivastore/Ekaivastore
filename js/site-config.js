@@ -37,12 +37,12 @@ window.EKAIVA_CONFIG = {
      Firebase setup in README-SETUP-GUIDE.md ("Email verification" section), then
      set enabled to true and fill in the firebase keys from your Firebase project. */
   verification: {
-    enabled: false,
+    enabled: true,
     firebase: {
-      apiKey: "",
-      authDomain: "",
-      projectId: "",
-      appId: ""
+      apiKey: "AIzaSyDhTAhs7xu_HR05z8-_hsTQKSwmOEEst_0",
+      authDomain: "ekaiva-ac127.firebaseapp.com",
+      projectId: "ekaiva-ac127",
+      appId: "1:114841781933:web:1d544f93c30d9036766824"
     }
   },
 
