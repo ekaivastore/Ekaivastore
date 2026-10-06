@@ -28,7 +28,7 @@ window.EKAIVA_CONFIG = {
       "Bhayander West, Mira Bhayander,",
       "Maharashtra - 401101"
     ],
-    mapQuery: "Hinglaaj CHS Modi Patel Road Bhayander West Mira Bhayander 401101"
+    mapQuery: "Ekaiva - Best spices and masala, Shop No 5, Modi Patel Road, Bhayandar West, Mira Bhayandar, Maharashtra 401101"
   },
 
   /* From your FSSAI registration certificate. */
