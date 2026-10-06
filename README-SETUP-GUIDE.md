@@ -63,6 +63,29 @@ Then open `js/products-data.js` and, for each product that is live on Swiggy Ins
 How to get the link: open the product in the Swiggy Instamart app or on the Swiggy website and copy its share/page link.
 Until you do, those buttons say "Find on Swiggy Instamart" and open Instamart's home page.
 
+### 3B. OTP verification (optional, off by default)
+
+The Contact page can require a visitor to verify their email and phone with a one-time code before they're allowed to send a message. This is off by default, and the form works exactly as before until you turn it on. It's built on **Firebase Authentication** (Google's free sign-in service) so no custom backend or database is needed.
+
+What a visitor sees once it's on: they fill in their email and phone, press **Verify email** (a link is emailed to them - they click it and come back to the tab), press **Send OTP** (a 6-digit code arrives by SMS) and type it in. Only once both are verified does **Send message** switch on.
+
+Important limits to know:
+- **SMS costs money.** Firebase Phone Authentication needs your project to be on Firebase's "Blaze" (pay-as-you-go) plan. Google gives a small number of free verifications and it's usually a few cents per SMS after that - there is no large upfront cost, but it is not entirely free.
+- **This is a front-end gate, not a security wall.** Because the whole site is static files with no server of our own, a technically determined visitor could bypass the button in their browser's dev tools. It's meant to stop casual spam/typos, not a replacement for a real backend if you ever need to guarantee every message was verified.
+
+One-time setup:
+1. Go to [console.firebase.google.com](https://console.firebase.google.com), sign in with your Google account, and click **Add project**. Give it any name (e.g. "Ekaiva").
+2. In the project, go to **Build -> Authentication -> Get started**, then under **Sign-in method** turn on:
+   - **Email link (passwordless sign-in)**
+   - **Phone**
+3. Still in Authentication, open **Settings -> Authorized domains** and add `ekaivastore.com` (and `www.ekaivastore.com` if you use that).
+4. Phone sign-in needs billing: in the Firebase console go to **Upgrade** (bottom left) and move to the **Blaze** plan. You can set a budget alert so you're never surprised by a bill.
+5. Back on the project's home page, click the **</>** (web app) icon to register a web app, name it anything, and skip the hosting step. Firebase shows you a config block with `apiKey`, `authDomain`, `projectId` and `appId`.
+6. Open `js/site-config.js`, find `verification`, paste those four values in, and change `enabled` to `true`.
+7. Commit/upload the change, then test it on the live site yourself end to end (verify your own email and phone) before telling customers about it.
+
+To turn it off again at any time, set `enabled` back to `false` - nothing else needs to change.
+
 ## 4. Put it on your domain
 
 In GoDaddy open **My Products**. The link you shared is the *domain settings* page for ekaivastore.com, which does not by itself show whether you also have hosting. Look for a product called **Web Hosting** (cPanel) next to the domain.

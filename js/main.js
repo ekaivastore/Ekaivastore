@@ -372,6 +372,117 @@
     try { $("#next").value = new URL("thank-you.html", location.href).href; } catch (e) {}
     var pre = new URLSearchParams(location.search).get("product"), p = pre && find(pre);
     if (p) { $("#message").value = "Hi, I'd like to know about " + p.name + " (" + p.weight + ")."; $("#topic").value = "Where to buy / product question"; }
+    initVerification(form);
+  }
+
+  /* ------------------------------------------------- OTP verification
+     Verifies a visitor's phone (SMS OTP) and email (sign-in link) with Firebase
+     Authentication before letting them submit the contact form. If C.verification
+     isn't turned on / configured, this does nothing and the form behaves as before. */
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement("script");
+      s.src = src; s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+
+  function initVerification(form) {
+    var cfg = C.verification, sendBtn = $("#send-btn", form);
+    var configured = cfg && cfg.enabled && cfg.firebase && cfg.firebase.apiKey;
+    if (!configured) { if (sendBtn) sendBtn.disabled = false; return; } // verification off - form works as before
+
+    if (sendBtn) sendBtn.disabled = true;
+    $$(".verify-only", form).forEach(function (el) { el.classList.remove("hide"); });
+    var phoneInputEl = $("#phone", form); if (phoneInputEl) phoneInputEl.required = true;
+    var phoneLabel = $("#phone-label", form); if (phoneLabel) phoneLabel.textContent = "Phone";
+
+    loadScript("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js")
+      .then(function () { return loadScript("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"); })
+      .then(function () { setupVerification(form, cfg.firebase); })
+      .catch(function (err) {
+        if (window.console) console.error("Ekaiva verification failed to load:", err);
+        var hint = $("#verify-hint", form);
+        if (hint) hint.textContent = "Verification could not load. Please try again later.";
+      });
+  }
+
+  function setupVerification(form, firebaseConfig) {
+    firebase.initializeApp(firebaseConfig);
+    var auth = firebase.auth();
+    var sendBtn = $("#send-btn", form), hint = $("#verify-hint", form);
+    var emailInput = $("#email", form), emailStatus = $("#email-status", form), emailBtn = $("#email-verify-btn", form);
+    var phoneInput = $("#phone", form), phoneStatus = $("#phone-status", form), phoneBtn = $("#phone-otp-btn", form);
+    var otpRow = $("#phone-otp-row", form), otpInput = $("#phone-otp-code", form), otpVerifyBtn = $("#phone-otp-verify-btn", form);
+    var emailVerified = false, phoneVerified = false, confirmationResult = null;
+
+    function updateSendBtn() {
+      var ok = emailVerified && phoneVerified;
+      if (sendBtn) sendBtn.disabled = !ok;
+      if (hint) hint.textContent = ok ? "" : "Verify your email and phone above to send a message.";
+    }
+    updateSendBtn();
+
+    /* --- Email: passwordless sign-in link doubles as a one-time verification link --- */
+    if (auth.isSignInWithEmailLink(window.location.href)) {
+      var storedEmail = window.localStorage.getItem("ekVerifyEmail");
+      if (storedEmail) {
+        auth.signInWithEmailLink(storedEmail, window.location.href).then(function () {
+          emailVerified = true;
+          if (emailInput) emailInput.value = storedEmail;
+          if (emailStatus) emailStatus.textContent = "Email verified.";
+          window.localStorage.removeItem("ekVerifyEmail");
+          history.replaceState(null, "", window.location.pathname + window.location.search.replace(/[?&]?(apiKey|oobCode|mode|lang)=[^&]*/g, ""));
+          updateSendBtn();
+        }).catch(function () {
+          if (emailStatus) emailStatus.textContent = "That verification link is invalid or expired - try again.";
+        });
+      }
+    }
+    if (emailBtn) emailBtn.addEventListener("click", function () {
+      var email = emailInput && emailInput.value.trim();
+      if (!email) { if (emailStatus) emailStatus.textContent = "Enter your email first."; return; }
+      emailBtn.disabled = true;
+      auth.sendSignInLinkToEmail(email, { url: window.location.href, handleCodeInApp: true }).then(function () {
+        window.localStorage.setItem("ekVerifyEmail", email);
+        if (emailStatus) emailStatus.textContent = "Verification link sent - open it from your inbox, then come back to this tab.";
+      }).catch(function (err) {
+        if (emailStatus) emailStatus.textContent = "Could not send link (" + err.code + ").";
+      }).finally(function () { emailBtn.disabled = false; });
+    });
+
+    /* --- Phone: SMS OTP --- */
+    var recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", { size: "invisible" }, auth);
+    if (phoneBtn) phoneBtn.addEventListener("click", function () {
+      var raw = (phoneInput && phoneInput.value.trim()) || "";
+      var digits = raw.replace(/[^0-9+]/g, "");
+      if (digits.charAt(0) !== "+") digits = "+91" + digits.replace(/^0+/, "");
+      if (!/^\+[0-9]{10,15}$/.test(digits)) { if (phoneStatus) phoneStatus.textContent = "Enter a valid phone number."; return; }
+      phoneBtn.disabled = true;
+      auth.signInWithPhoneNumber(digits, recaptchaVerifier).then(function (result) {
+        confirmationResult = result;
+        if (otpRow) otpRow.classList.remove("hide");
+        if (phoneStatus) phoneStatus.textContent = "Code sent by SMS.";
+      }).catch(function (err) {
+        if (phoneStatus) phoneStatus.textContent = "Could not send code (" + err.code + ").";
+      }).finally(function () { phoneBtn.disabled = false; });
+    });
+    if (otpVerifyBtn) otpVerifyBtn.addEventListener("click", function () {
+      var code = otpInput && otpInput.value.trim();
+      if (!confirmationResult || !code) return;
+      otpVerifyBtn.disabled = true;
+      confirmationResult.confirm(code).then(function () {
+        phoneVerified = true;
+        if (phoneStatus) phoneStatus.textContent = "Phone verified.";
+        updateSendBtn();
+      }).catch(function () {
+        if (phoneStatus) phoneStatus.textContent = "Incorrect code - try again.";
+      }).finally(function () { otpVerifyBtn.disabled = false; });
+    });
+
+    form.addEventListener("submit", function (e) {
+      if (!(emailVerified && phoneVerified)) { e.preventDefault(); updateSendBtn(); }
+    });
   }
 
 
