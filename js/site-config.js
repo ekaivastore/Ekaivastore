@@ -62,7 +62,7 @@ window.EKAIVA_CONFIG = {
      - instamartHome: opens Swiggy Instamart when a product has no direct link yet.
      - Put each product's own Instamart / Amazon link inside js/products-data.js.   */
   buy: {
-    instamartHome: "https://www.swiggy.com/instamart",
+    instamartHome: "https://instamart.in/search?custom_back=true&query=Ekaiva",
     amazonStore: ""     // optional: your Amazon brand-store link
   },
 
