@@ -21,7 +21,7 @@ window.EKAIVA_CONFIG = {
   contact: {
     email: "ekaivaspices@gmail.com",   // contact form messages are sent here
     phone: "",          // e.g. "+91 98XXXXXXXX"  (shown as a call link)
-    whatsapp: "919326129431",   // digits only, with country code 91  (switches on the WhatsApp buttons and ordering)
+    whatsapp: "917208607821",   // digits only, with country code 91  (switches on the WhatsApp buttons and ordering)
     hours: "",          // e.g. "Mon-Sat, 10 am - 6 pm"
     addressLines: [
       "Shop No 5, Hinglaaj CHS Ltd, Modi Patel Road,",
